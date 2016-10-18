@@ -36,6 +36,9 @@ const tableData = [
   },
 ];
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // for parsing application/json
+
 app.use('/js', express.static(__dirname + '/views/js'));//指定静态目录,当以/source开头的请求直接转发到/source目录下
 
 app.engine('.html', ejs.__express);
@@ -45,7 +48,7 @@ app.get('/', function(req, res){
     res.render('./home')
 });
 
-app.get('/login',require('./server/routes/user.js').login)
+app.post('/login',require('./server/routes/user.js').login)
 
 // app.get('/index',function(req,res){
 //    res.render('./page/index');

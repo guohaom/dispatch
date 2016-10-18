@@ -15,6 +15,23 @@ var Login = React.createClass ({
     submit() {
         console.log(this.state.username);
         console.log(this.state.password);
+         fetch("http://localhost:3000/login",{
+             method : 'post',
+             headers : {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'    
+             },
+             body : JSON.stringify({
+                 username : this.state.username,
+                 password : this.state.password
+             })
+         }).then(
+
+           response => response.json().then( value => {
+            console.log(value);
+            
+           } )
+    )
     },
     usernameChange(event) {
         console.log(event.target.value)

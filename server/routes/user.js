@@ -20,7 +20,8 @@ var login = function(res,username,password){
     })
 }
 exports.login = function(req,res){
-    login(res,req.query.username,req.query.password);
+    console.log(req.params);
+    login(res,req.body.username,req.body.password);
     // console.log("login return is "+users);
     // res.send(users);
 }
