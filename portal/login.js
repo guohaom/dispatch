@@ -9,7 +9,8 @@ var Login = React.createClass ({
     getInitialState() {
         return{
             username: "",
-            password: ""
+            password: "",
+            loginError : ""
         };
     },
     submit() {
@@ -29,7 +30,13 @@ var Login = React.createClass ({
 
            response => response.json().then( value => {
             console.log(value);
-            
+            if( value.success){
+                this.props.history.push('/list');
+            }else{
+                this.setState({
+                    loginError: "用户名密码错误"
+                });
+            }
            } )
     )
     },
@@ -63,18 +70,19 @@ var Login = React.createClass ({
                     onChange={this.passwordChange}
                     />
                 <RaisedButton label="login" primary={true} style={styles.loginButton} onClick={this.submit}/>
+                <div>{ this.state.loginError }</div>
             </div>
         );
     }
 })
 const styles = {
     loginBlock: {
+        width: '100%',
+        height: 400,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        heigth: 700
+        alignItems: 'center'
     },
     loginButton: {
         height: 40,

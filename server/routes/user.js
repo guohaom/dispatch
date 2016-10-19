@@ -13,9 +13,13 @@ var login = function(res,username,password){
             console.error(err);
         }
         if( users.length != 0 ){
-            res.send(users);
+            res.send({
+                success: true    
+            });
         }else{
-            res.send('cant find');
+            res.send({
+                success: false
+            });
         }
     })
 }
