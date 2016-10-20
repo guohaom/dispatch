@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry:{
-        home:'./portal/home.js',
+        bind :'./portal/index.js',
     },
     output:{
         path:'./views/js',

@@ -1,23 +1,37 @@
 import React from 'react';
-import {render} from 'react-dom';
+import {Link} from 'react-router';
 
-import TaskList from './taskList.js';
+//var ReactMarkdown = require('react-markdown');
+//var md = require('markdown-it')();
 
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-//import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import Login from './login.js';
+//var Remarkable = require('remarkable');
+//var md = new Remarkable();
 
-const muiTheme = getMuiTheme({
 
-});
 
-render((
-    <MuiThemeProvider muiTheme={muiTheme}>
-        <Router history={hashHistory}>
-            <Route path="/" component={Login}/>   
-            <Route path="/list" component={TaskList}></Route>
-        </Router>
-    </MuiThemeProvider>
-), document.getElementById('app'));
+export default class Home extends React.Component{
+ constructor(props) {
+    super(props);
+ this.state = {
+        content : ""
+    }
+
+ }
+
+ componentDidMount(){
+    //var result = md.render('# markdown-it rulezz!');
+    //console.log(md.render('# Remarkable rulezz!'));
+    //var result = md.render('# Remarkable rulezz!');
+    var result = "";
+    this.setState({
+        content : result
+    })
+ }
+ render(){
+    var input = '# This is a header\n\nAnd this is a paragraph';
+     return(
+         <div>{this.state.content}</div>
+
+     )
+ }
+}
