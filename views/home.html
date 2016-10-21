@@ -3,8 +3,13 @@
 <head>
     <title>begin</title>
 </head>
-<body>
+<body style="margin:0">
 <div id="app"></div>
+<script>
+    console.log(window.innerHeight);
+    console.log(document.body.clientHeight);
+    document.getElementById('app').style.height = window.innerHeight + 'px';
+</script>
 <script src="/js/bind.js"></script>
 </body>
 </html>

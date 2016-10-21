@@ -5,48 +5,47 @@ import {Link} from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-var Login = React.createClass ({
+var Login = React.createClass({
     getInitialState() {
-        return{
+        return {
             username: "",
             password: "",
-            loginError : ""
+            loginError: ""
         };
     },
     submit() {
         console.log(this.state.username);
         console.log(this.state.password);
-         fetch("http://localhost:3000/login",{
-             method : 'post',
-             headers : {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'    
-             },
-             body : JSON.stringify({
-                 username : this.state.username,
-                 password : this.state.password
-             })
-         }).then(
-
-           response => response.json().then( value => {
-            console.log(value);
-            if( value.success){
-                this.props.history.push('/list');
-            }else{
-                this.setState({
-                    loginError: "用户名密码错误"
-                });
-            }
-           } )
-    )
+        fetch("http://localhost:3000/login", {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        }).then(
+            response => response.json().then(value => {
+                console.log(value);
+                if (value.success) {
+                    this.props.history.push('/home');
+                } else {
+                    this.setState({
+                        loginError: "用户名密码错误"
+                    });
+                }
+            })
+            )
     },
     usernameChange(event) {
         console.log(event.target.value)
         this.setState({
-            username : event.target.value
+            username: event.target.value
         })
     },
-    passwordChange(event){
+    passwordChange(event) {
         console.log(event.target.value)
         this.setState({
             password: event.target.value

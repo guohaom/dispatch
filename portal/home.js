@@ -6,32 +6,62 @@ import {Link} from 'react-router';
 
 //var Remarkable = require('remarkable');
 //var md = new Remarkable();
+import IconButton from 'material-ui/IconButton';
+import IconModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import {lime50, yellow500, blue500} from 'material-ui/styles/colors';
 
-
-
-export default class Home extends React.Component{
- constructor(props) {
-    super(props);
- this.state = {
-        content : ""
+const Home = React.createClass( {
+    getInitialState() {
+        return{
+            username: "",
+            password: "",
+            loginError : ""
+        };
+    },
+    componentDidMount() {
+        //var result = md.render('# markdown-it rulezz!');
+        //console.log(md.render('# Remarkable rulezz!'));
+        //var result = md.render('# Remarkable rulezz!');
+        var result = "";
+        this.setState({
+            content: result
+        })
+    },
+    toEdit(){
+        console.log('click')
+       // this.props.history.push('/home');
+       //context.router
+       this.props.history.push('/home/edit')
+        //this.context.router.push('/home/edit');
+    },
+    render() {
+        var input = '# This is a header\n\nAnd this is a paragraph';
+        return (
+            <div style={styles.body}>
+                <div style={ styles.header}>
+                    <IconButton tooltip="编辑日志" onClick={this.toEdit}>
+                        <IconModeEdit color={lime50} />
+                    </IconButton>
+                </div>
+                <div>
+                    {this.props.children}
+                </div>
+            </div>
+        )
     }
+})
 
- }
-
- componentDidMount(){
-    //var result = md.render('# markdown-it rulezz!');
-    //console.log(md.render('# Remarkable rulezz!'));
-    //var result = md.render('# Remarkable rulezz!');
-    var result = "";
-    this.setState({
-        content : result
-    })
- }
- render(){
-    var input = '# This is a header\n\nAnd this is a paragraph';
-     return(
-         <div>{this.state.content}</div>
-
-     )
- }
+const styles = {
+    body: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    header: {
+        height: 50,
+        width: '100%',
+        backgroundColor: 'black',
+        color: 'white'
+    }
 }
+
+export default Home;
