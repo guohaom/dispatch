@@ -4,15 +4,19 @@ import Dialog from 'material-ui/Dialog';
 import Chip from 'material-ui/Chip';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import {lime50, yellow500, blue300} from 'material-ui/styles/colors';
+import { lime50, yellow500, blue300 } from 'material-ui/styles/colors';
 
+var { connect } = require('react-redux');
 
 const EditNote = React.createClass({
 
-    getInitialState() {
-        return {
-            open: false,
-        }
+    // getInitialState() {
+    //     return {
+    //         open: false,
+    //     }
+    // },
+    componentDidMount(){
+        console.log( 'editnote', this.props);
     },
 
     handleOpen() {
@@ -42,24 +46,23 @@ const EditNote = React.createClass({
 
         return (
             <div>
-                <RaisedButton label="添加日志" onClick={this.handleOpen} />
                 <Dialog
                     title="添加日志"
-                    titleStyle={ {fontSize:22, margin:5} }
+                    titleStyle={{ fontSize: 22, margin: 5 }}
                     actions={actions}
                     modal={true}
-                    open={this.state.open}
+                    open={this.props.open}
                     style={styles.dialog}
                     >
-                    <div style = { styles.noteTypeBlock}>
+                    <div style={styles.noteTypeBlock}>
                         <Chip style={{ margin: 4 }} backgroundColor={blue300}>
-                                工作任务
+                            工作任务
                         </Chip>
                         <Chip style={{ margin: 4 }}>
-                                生活记录
+                            生活记录
                         </Chip>
                     </div>
-                    <textarea style = {styles.noteContent}>
+                    <textarea style={styles.noteContent}>
                         xyz
                    </textarea>
                 </Dialog>
@@ -67,18 +70,17 @@ const EditNote = React.createClass({
         );
     }
 
-
 })
 
 const styles = {
-    dialog:{
-        
+    dialog: {
+
     },
-    noteTypeBlock : {
+    noteTypeBlock: {
         display: 'flex',
         flexWrap: 'wrap',
     },
-    noteContent : {
+    noteContent: {
         width: '100%',
         height: 300,
         margin: '10px 0 0 0',
@@ -86,4 +88,10 @@ const styles = {
     }
 }
 
-export default EditNote;
+function mapStateToProps(store) {
+  return {
+    open: store.note.open
+  }
+}
+
+export default connect(mapStateToProps)(EditNote);
