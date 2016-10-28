@@ -1,19 +1,20 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Link} from 'react-router';
+import { render } from 'react-dom';
+import { Link } from 'react-router';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-var Login = React.createClass({
-    getInitialState() {
-        return {
+class Login extends React.Component {
+    constructor() {
+        super();
+        this.state = {
             username: "",
             password: "",
             loginError: ""
         };
-    },
-    submit() {
+    }
+    submit = () => {
         console.log(this.state.username);
         console.log(this.state.password);
         fetch("http://localhost:3000/login", {
@@ -38,19 +39,19 @@ var Login = React.createClass({
                 }
             })
             )
-    },
-    usernameChange(event) {
+    }
+    usernameChange = (event) => {
         console.log(event.target.value)
         this.setState({
             username: event.target.value
         })
-    },
-    passwordChange(event) {
+    }
+    passwordChange = (event) => {
         console.log(event.target.value)
         this.setState({
             password: event.target.value
         })
-    },
+    }
 
     render() {
         return (
@@ -68,12 +69,12 @@ var Login = React.createClass({
                     style={styles.loginBlockItem}
                     onChange={this.passwordChange}
                     />
-                <RaisedButton label="login" primary={true} style={styles.loginButton} onClick={this.submit}/>
-                <div>{ this.state.loginError }</div>
+                <RaisedButton label="login" primary={true} style={styles.loginButton} onClick={this.submit} />
+                <div>{this.state.loginError}</div>
             </div>
         );
     }
-})
+}
 const styles = {
     loginBlock: {
         width: '100%',

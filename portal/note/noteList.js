@@ -13,20 +13,15 @@ class NoteList extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        console.log('super');
-        this.handleOpen = this.handleOpen.bind(this);
-
-        console.log('constructor', props);
-        console.log('constructor', context)
 
     }
 
 
-    handleOpen() {
-        console.log('this.props', this.props);
-        console.log('this.context', this.context);
+    handleOpen = () => {
+        //console.log('this.props', this.props);
+        //console.log('this.context', this.context);
         this.props.dispatch({
-            type: 'EDIT_NOTE',
+            type: 'OPEN_EDIT_NOTE',
             editType: '编辑日志'
         });
     };
@@ -49,9 +44,7 @@ class NoteList extends React.Component {
         return (
             <div>
                 <RaisedButton label="添加日志" onClick={this.handleOpen} />
-
             </div>
-
         );
     }
 

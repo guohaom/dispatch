@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component } from 'react';
 
 import Dialog from 'material-ui/Dialog';
 import Chip from 'material-ui/Chip';
@@ -8,26 +8,24 @@ import { lime50, yellow500, blue300 } from 'material-ui/styles/colors';
 
 var { connect } = require('react-redux');
 
-const EditNote = React.createClass({
+class EditNote extends Component{
 
-    // getInitialState() {
-    //     return {
-    //         open: false,
-    //     }
-    // },
-    componentDidMount(){
-        console.log( 'editnote', this.props);
-    },
+    constructor(props, context) {
+            super(props, context);
+            //console.log('super');
+            // this.handleOpen = this.handleOpen.bind(this);
+            console.log('edit note props',props)
+        }
 
-    handleOpen() {
-        console.log('open press')
-        this.setState({ open: true });
-    },
+    componentDidMount () {
+        //console.log( 'editnote', this.props);
+    }
 
-    handleClose() {
-        console.log(' close press')
-        this.setState({ open: false });
-    },
+    handleClose = () => {
+        this.props.dispatch({
+            type: 'CLOSE_EDIT_NOTE'
+        });
+    }
 
     render() {
         const actions = [
@@ -39,7 +37,6 @@ const EditNote = React.createClass({
             <FlatButton
                 label="Submit"
                 primary={true}
-                disabled={true}
                 onClick={this.handleClose}
                 />,
         ];
@@ -62,15 +59,14 @@ const EditNote = React.createClass({
                             生活记录
                         </Chip>
                     </div>
-                    <textarea style={styles.noteContent}>
-                        xyz
-                   </textarea>
+                    <textarea style={styles.noteContent} 
+                    />
                 </Dialog>
             </div>
         );
     }
 
-})
+}
 
 const styles = {
     dialog: {
