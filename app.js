@@ -48,7 +48,11 @@ app.get('/', function(req, res){
     res.render('./home')
 });
 
-app.post('/login',require('./server/routes/user.js').login)
+app.post('/login',require('./server/routes/user.js').login);
+
+app.post('/note/edit',require('./server/routes/note.js').edit);
+
+app.post('/nost/last',require('./server/routes/note.js').getLast);
 
 // app.get('/index',function(req,res){
 //    res.render('./page/index');

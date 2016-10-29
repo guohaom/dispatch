@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 
 import Dialog from 'material-ui/Dialog';
 import Chip from 'material-ui/Chip';
@@ -8,16 +8,19 @@ import { lime50, yellow500, blue300 } from 'material-ui/styles/colors';
 
 var { connect } = require('react-redux');
 
-class EditNote extends Component{
+class EditNote extends Component {
 
     constructor(props, context) {
-            super(props, context);
-            //console.log('super');
-            // this.handleOpen = this.handleOpen.bind(this);
-            console.log('edit note props',props)
+        super(props, context);
+        //console.log('super');
+        // this.handleOpen = this.handleOpen.bind(this);
+        console.log('edit note props', props)
+        this.state = {
+            content: ""
         }
+    }
 
-    componentDidMount () {
+    componentDidMount() {
         //console.log( 'editnote', this.props);
     }
 
@@ -25,6 +28,35 @@ class EditNote extends Component{
         this.props.dispatch({
             type: 'CLOSE_EDIT_NOTE'
         });
+    }
+
+    updateContent = (event) => {
+        this.setState({
+            content: event.target.value
+        })
+    }
+
+    submit = () => {
+        fetch('http://localhost:3000/note/edit', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: '2016-10-29',
+                record: {
+                    type: this.props.editType,
+                    content: this.state.content
+                }
+            })
+        }).then(
+            response => response.json().then(value => {
+                if (value.success) {
+                    this.props.dispatch({ type: 'CLOSE_EDIT_NOTE' });
+                }
+            })
+            )
     }
 
     render() {
@@ -37,7 +69,7 @@ class EditNote extends Component{
             <FlatButton
                 label="Submit"
                 primary={true}
-                onClick={this.handleClose}
+                onClick={this.submit}
                 />,
         ];
 
@@ -53,14 +85,12 @@ class EditNote extends Component{
                     >
                     <div style={styles.noteTypeBlock}>
                         <Chip style={{ margin: 4 }} backgroundColor={blue300}>
-                            工作任务
-                        </Chip>
-                        <Chip style={{ margin: 4 }}>
-                            生活记录
+                            {this.props.editType}
                         </Chip>
                     </div>
-                    <textarea style={styles.noteContent} 
-                    />
+                    <textarea style={styles.noteContent}
+                        onChange={this.updateContent}
+                        />
                 </Dialog>
             </div>
         );
@@ -85,9 +115,10 @@ const styles = {
 }
 
 function mapStateToProps(store) {
-  return {
-    open: store.note.open
-  }
+    return {
+        open: store.note.open,
+        editType: store.note.editType
+    }
 }
 
 export default connect(mapStateToProps)(EditNote);

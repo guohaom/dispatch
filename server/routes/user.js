@@ -1,8 +1,8 @@
-var user = require('../model/user.js')
+var User = require('../model/user.js')
 
 var login = function(res,username,password){
     console.log( " access login -------->" + username + password)
-    user.find({
+    User.find({
         name: username,
         password: password
     },function(err,users){
@@ -23,6 +23,7 @@ var login = function(res,username,password){
         }
     })
 }
+
 exports.login = function(req,res){
     console.log(req.params);
     login(res,req.body.username,req.body.password);

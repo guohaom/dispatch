@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 
 mongoose.connect('mongodb://localhost/dispatch');
@@ -10,9 +11,9 @@ db.once('open', function() {
   console.log('mongo connection succ');
 });
 
-var UserSchema = mongoose.Schema({
+var NoteSchema = Schema({
     date: String,
-    password: String
+    records: Schema.Types.Mixed
 },{collection: 'note'});
 //UserSchema.set('collection', 'user');
 
@@ -20,6 +21,6 @@ var UserSchema = mongoose.Schema({
     
 // }
 
-var User = mongoose.model('user', UserSchema);
+var Note = mongoose.model('note', NoteSchema);
 
-module.exports =  User;
+module.exports =  Note;
