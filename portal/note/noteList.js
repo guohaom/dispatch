@@ -15,7 +15,7 @@ class NoteList extends React.Component {
         super(props, context);
 
         this.state = {
-            lastDiary: {}
+            notes : []
         }
 
     }
@@ -30,11 +30,12 @@ class NoteList extends React.Component {
                 'Content-Type': 'application/json'
             }
         }).then(
-            respone.response.json().then(
+            response => 
+            response.json().then(
                 value => {
                     console.log('fetch value',value);
                     this.setState({
-                        lastDiary: value
+                        notes : value
                     })
                 }
             )
@@ -47,23 +48,29 @@ class NoteList extends React.Component {
         //console.log('this.context', this.context);
         this.props.dispatch({
             type: 'OPEN_EDIT_NOTE',
-            editType: '生活'
+            editType: '花费'
         });
     };
 
     render() {
-        let records = this.state.lastDiary.records;
-        let allType = Object.keys(records);
+        let notes = this.state.notes;
         return (
             <div>
                 <RaisedButton label="添加生活日志" onClick={this.handleOpen} />
                 <div>
                     {
-                        allType.map(
-                            type => (
-                                <div>
-                                    <div>{type}</div>
-                                    <div>{records[type]}</div>
+                        notes.map(
+                            (note) => (
+                                <div style={styles.oneNote}>
+                                    <div style={styles.date}>{note.date}</div>
+                                    {Object.keys(note.records).map(
+                                        (type) => (
+                                            <div style={styles.oneType}>
+                                                <div style={styles.typeName}>{type}</div>
+                                                <div style={styles.content}>{note.records[type].content}</div>
+                                            </div>
+                                        )
+                                    )}
                                 </div>
                             )
                         )
@@ -77,7 +84,27 @@ class NoteList extends React.Component {
 }
 
 const styles = {
-
+    oneNote:{
+        margin:'10px 0 0 0'
+    },
+    date:{
+        width: '100%',
+        backgroundColor: '#fff1cb',
+        fontSize: 25,
+        padding: 10
+    },
+    oneType:{
+        border:'1px solid #ccc',
+        borderLeft:'3px solid blue',
+        padding: 10,
+        margin:'5px 0 0 0'
+    },
+    typeName:{
+        color: 'blue'
+    },
+    content:{
+        margin:'10px 0 0 0'
+    }
 }
 
 
