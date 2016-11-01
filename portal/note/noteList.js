@@ -48,7 +48,8 @@ class NoteList extends React.Component {
         //console.log('this.context', this.context);
         this.props.dispatch({
             type: 'OPEN_EDIT_NOTE',
-            editType: '花费'
+            editType: '花费',
+            date:'2016-11-01'
         });
     };
 
@@ -90,8 +91,8 @@ const styles = {
     date:{
         width: '100%',
         backgroundColor: '#fff1cb',
-        fontSize: 25,
-        padding: 10
+        fontSize: 25
+        
     },
     oneType:{
         border:'1px solid #ccc',

@@ -44,7 +44,7 @@ class EditNote extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                date: '2016-10-29',
+                date: this.props.date,
                 record: {
                     type: this.props.editType,
                     content: this.state.content
@@ -76,7 +76,7 @@ class EditNote extends Component {
         return (
             <div>
                 <Dialog
-                    title="添加日志"
+                    title={this.props.date}
                     titleStyle={{ fontSize: 22, margin: 5 }}
                     actions={actions}
                     modal={true}
@@ -117,7 +117,8 @@ const styles = {
 function mapStateToProps(store) {
     return {
         open: store.note.open,
-        editType: store.note.editType
+        editType: store.note.editType,
+        date: store.note.date
     }
 }
 

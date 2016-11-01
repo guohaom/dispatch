@@ -46,7 +46,7 @@ exports.edit = function (req, res) {
 }
 
 exports.getLast = function(req,res){
-    Note.find({}).limit(1).sort('date').exec(function(err,doc ){
+    Note.find({}).limit(1).sort({date:-1}).exec(function(err,doc ){
         res.send(doc);
     })
 }
