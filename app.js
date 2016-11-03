@@ -50,9 +50,11 @@ app.get('/', function(req, res){
 
 app.post('/login',require('./server/routes/user.js').login);
 
-app.post('/note/edit',require('./server/routes/note.js').edit);
+app.post('/diary/edit',require('./server/routes/diary.js').edit);
 
-app.post('/note/last',require('./server/routes/note.js').getLast);
+app.post('/diary/last',require('./server/routes/diary.js').getLast);
+
+app.post('/noteType/:type',require('./server/routes/noteType.js').getType);
 
 // app.get('/index',function(req,res){
 //    res.render('./page/index');

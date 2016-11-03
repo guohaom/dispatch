@@ -11,16 +11,11 @@ db.once('open', function() {
   console.log('mongo connection succ');
 });
 
-var NoteSchema = Schema({
-    date: String,
-    records: Schema.Types.Mixed
-},{collection: 'note'});
-//UserSchema.set('collection', 'user');
+var NoteTypeSchema = Schema({
+    type: String,
+    types: Schema.Types.Mixed
+},{collection: 'noteType'});
 
-// UserSchema.methods.login = function(username,password){
-    
-// }
+var NoteType = mongoose.model('noteType', NoteTypeSchema);
 
-var Note = mongoose.model('note', NoteSchema);
-
-module.exports =  Note;
+module.exports =  NoteType;

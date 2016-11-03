@@ -9,21 +9,21 @@ import { lime50, yellow500, blue300 } from 'material-ui/styles/colors';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-class NoteList extends React.Component {
+class DiaryList extends React.Component {
 
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            notes : []
+            diaries : []
         }
 
     }
 
     componentDidMount() {
-        // get the last day s note
+        // get the last day s diary
         console.log(' begin fetch');
-        fetch('/note/last', {
+        fetch('/diary/last', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -35,7 +35,7 @@ class NoteList extends React.Component {
                 value => {
                     console.log('fetch value',value);
                     this.setState({
-                        notes : value
+                        diaries : value
                     })
                 }
             )
@@ -44,31 +44,31 @@ class NoteList extends React.Component {
 
 
     handleOpen = () => {
-        //console.log('this.props', this.props);
-        //console.log('this.context', this.context);
+        // 获取今天
+        let now = new Date();
         this.props.dispatch({
-            type: 'OPEN_EDIT_NOTE',
-            editType: '花费',
-            date:'2016-11-01'
+            type: 'OPEN_EDIT_DIARY',
+            diaryType: '学习',
+            diaryDate: now
         });
     };
 
     render() {
-        let notes = this.state.notes;
+        let diaries = this.state.diaries;
         return (
-            <div>
-                <RaisedButton label="添加生活日志" onClick={this.handleOpen} />
+            <div style={{width:'100%'}}>
+                <RaisedButton label="添加日志" onClick={this.handleOpen} />
                 <div>
                     {
-                        notes.map(
-                            (note) => (
-                                <div style={styles.oneNote}>
-                                    <div style={styles.date}>{note.date}</div>
-                                    {Object.keys(note.records).map(
+                        diaries.map(
+                            (diary) => (
+                                <div style={styles.diary}>
+                                    <div style={styles.date}>{diary.date}</div>
+                                    {Object.keys(diary.records).map(
                                         (type) => (
                                             <div style={styles.oneType}>
                                                 <div style={styles.typeName}>{type}</div>
-                                                <div style={styles.content}>{note.records[type].content}</div>
+                                                <div style={styles.content}>{diary.records[type].content}</div>
                                             </div>
                                         )
                                     )}
@@ -85,7 +85,7 @@ class NoteList extends React.Component {
 }
 
 const styles = {
-    oneNote:{
+    diary:{
         margin:'10px 0 0 0'
     },
     date:{
@@ -115,5 +115,5 @@ const styles = {
 // }
 
 // todo: 没有自动 将dispatch 放入属性里, 需要调用connect
-export default connect()(NoteList);
-// export default NoteList;
+export default connect()(DiaryList);
+// export default DiaryList;

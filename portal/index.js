@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import TaskList from './taskList.js';
-
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import store from './store/store.js';
 import { Provider } from 'react-redux'
@@ -12,8 +10,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 //import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Login from './login.js';
 import Home from './home.js';
-import EditNote from './note/editNote.js';
-import NoteList from './note/noteList.js';
+import EditDiary from './note/editDiary.js';
+import IndexPanel from './IndexPanel.js'
 
 const muiTheme = getMuiTheme({
 
@@ -27,9 +25,8 @@ render((
             <Router history={hashHistory}>
                 <Route path="/" component={Login} />
                 <Route path="home" component={Home}>
-                    <IndexRoute component={TaskList}></IndexRoute>
-                    <Route path='edit' component={EditNote} />
-                    <Route path='noteList' component={NoteList} />
+                    <IndexRoute component={IndexPanel} />
+                    <Route path='edit' component={EditDiary} />
                 </Route>
             </Router>
     </Provider>

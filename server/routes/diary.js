@@ -1,4 +1,4 @@
-var Note = require('../model/note.js')
+var Diary = require('../model/diary.js')
 
 exports.edit = function (req, res) {
     /** 接收参数 {date:date,records:{type:'type',content:'content'}} */
@@ -6,10 +6,11 @@ exports.edit = function (req, res) {
     var type = req.body.record.type;
     var content = req.body.record.content;
     console.log('param',date,type,content);
-    Note.find({
+    Diary.find({
         date
     }, function (err, diaries) {
-        console.log('find note',diaries);
+        console.log('find Diary',diaries);
+        // 此日期已有记录
         if (diaries.length != 0) {
             var diary = diaries[0];
             // 如果没有此类型的日志,则添加
@@ -30,7 +31,7 @@ exports.edit = function (req, res) {
                 console.log('save err'+err)
             });
         } else {
-            var note = new Note({
+            var diary = new Diary({
                 date: req.body.date,
                 records: {
                     [type]: {
@@ -38,7 +39,7 @@ exports.edit = function (req, res) {
                     }
                 }
             });
-            note.save();
+            diary.save();
         }
     });
 
@@ -46,7 +47,7 @@ exports.edit = function (req, res) {
 }
 
 exports.getLast = function(req,res){
-    Note.find({}).limit(1).sort({date:-1}).exec(function(err,doc ){
+    Diary.find({}).limit(10).sort({date:-1}).exec(function(err,doc ){
         res.send(doc);
     })
 }
